@@ -17,14 +17,16 @@ const rayos = []
 
 // Crear personaje
 class Alberto{
-    constructor(x,y,w,h, imagen){
+    constructor(x,y,w,h,imagen,vida,){
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.imagen = imagen;
+        this.vida= vida;
         this.saltando = true
-        
+        this.score = 0;
+            
     }
 
 avanzar(){
@@ -41,7 +43,7 @@ retroceder(){
 }
 
 saltar(){
-    if(this.x < 210){
+    if(this.x < 10){
         this.saltando = true;
     }
 
@@ -55,7 +57,7 @@ dibujarse(){
 morirse(){}
 disparar(){
     console.log("si dispara")
-    const rayitos= new Rayo(this.x + this.w, this.y + 10, 20,40, rayoImg)
+    const rayitos= new Rayo(this.x + this.w, this.y + 10, 80, 100, rayoImg)
     rayos.push(rayitos)
     console.log(rayos)
     
@@ -78,9 +80,9 @@ class Bicho{
         //ctx.fillRect(this.x, this.y, this.w,this.h);
         ctx.drawImage(this.imagen,this.x, this.y, this.w,this.h);
         if(this.nivel === "facil"){
-            this.x -=1;
+            this.x -=2;
         }else{
-            this.x-= 2;
+            this.x-= 3;
         }
                
     }
@@ -107,10 +109,12 @@ class Rayo{
 }
 
 
-function mostrarDatos(){
+function mostrarDatos(distancia, score,vida){
     ctx.fillStyle = "black";
-    ctx.font = "12px Verdana";
-    ctx.fillText("UNE Hero", 120,10);
+    ctx.font = "35px ArialBold";
+    ctx.fillText("UNE Hero", 600,80);
+    ctx.fillText(`Vida: ${vida}`, 800, 80);
+    ctx.fillText(`Score: ${score}`, 1000, 80);
     
       
     
@@ -121,7 +125,7 @@ function mostrarDatos(){
 
 function teclas(alberto){
        document.addEventListener("keyup",(evento) => {
-        console.log("Tecla tocada", evento.code);
+        //console.log("Tecla tocada", evento.code);
         switch(evento.code){
             case "KeyF":
                 alberto.disparar();
@@ -144,16 +148,17 @@ function teclas(alberto){
 
 function crearBicho(){
     const num = Math.floor(Math.random() * 100);
-        if(num === 4){
-        const bicho = new Bicho(200,150, 40,60, bichoImg, "facil")
+        if(num === 5){
+        const bicho = new Bicho(1366, 500, 240, 200, bichoImg, "facil")
         bichitos.push(bicho);
+        console.log(bichitos)
     }
 
 }
 
 function iniciarJuego(){
     let distancia = 0;
-    const alberto = new Alberto(25, 150, 40, 80, Imgalberto)
+    const alberto = new Alberto(0, 0, 240, 200, Imgalberto, 100)
     teclas(alberto);
     //console.log(alberto);
     alberto.dibujarse();
@@ -161,9 +166,9 @@ function iniciarJuego(){
     //aqui se reedibuja el videojuego
 
     setInterval(() => {
-        ctx.clearRect(0,0,250, 200);
+        ctx.clearRect(0,0,1366, 625);
         //mostrar datos
-        mostrarDatos(distancia);
+        mostrarDatos(distancia,alberto.score, alberto.vida);
         distancia += 1;
        
       
@@ -173,8 +178,8 @@ function iniciarJuego(){
         if(alberto.saltando === true){
             console.log("saltando");
             //altura maximo de salto
-            if(alberto.y > 20){
-                alberto.y -= 10;
+            if(alberto.y > 0){
+                alberto.y -= 15;
                 alberto.x += 5;   
             }else{alberto.saltando = false; 
 
@@ -183,8 +188,8 @@ function iniciarJuego(){
         }
 
         //no esta saltando
-        if(alberto.saltando === false && alberto.y < 120){
-            alberto.y += 5;
+        if(alberto.saltando === false && alberto.y < 450){
+            alberto.y += 10;
         }
         //dibujar enemigos/elementos extras
         bichitos.forEach((bicho, index) =>{
@@ -196,7 +201,7 @@ function iniciarJuego(){
                 alberto.vida -= 25;
                 //si sigue vivo alberto
                 if(alberto.vida < 100){
-                    alert("murio")
+                   //alert("murio")
                 }
             }
         });
@@ -208,7 +213,7 @@ function iniciarJuego(){
         
 
         crearBicho();
-    }, 1000 / 60);
+    }, 1000/50);
 
 }
 
