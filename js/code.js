@@ -9,7 +9,8 @@ const bichoImg = new Image()
 bichoImg.src = "../imagenes/bichos1.png"
 
 const rayoImg = new Image()
-rayoImg.src = "../imagenes/rayo-removebg-preview.png"
+rayoImg.src = "../imagenes/rayo.png"
+console.log(rayoImg)
 
 const bichitos = []
 const rayos = []
@@ -21,9 +22,9 @@ class Alberto{
         this.y = y;
         this.w = w;
         this.h = h;
-    
         this.imagen = imagen;
         this.saltando = true
+        
     }
 
 avanzar(){
@@ -47,15 +48,16 @@ saltar(){
 }
 
 dibujarse(){
-   
-    ctx.fillRect(this.x, this.y, this.w, this.h);
+    //ctxfillRect(this.x, this.y, this.w, this.h);
     ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
 }
 
 morirse(){}
 disparar(){
-    const rayito= new Rayo(this.x, this.w,this.y + 20,30 ,40,rayoImg)
-    rayos.push(rayito)
+    console.log("si dispara")
+    const rayitos= new Rayo(this.x + this.w, this.y + 10, 20,40, rayoImg)
+    rayos.push(rayitos)
+    console.log(rayos)
     
 }
 }
@@ -73,8 +75,7 @@ class Bicho{
 
     }
     dibujarse(){
-        
-        ctx.fillRect(this.x, this.y, this.w,this.h);
+        //ctx.fillRect(this.x, this.y, this.w,this.h);
         ctx.drawImage(this.imagen,this.x, this.y, this.w,this.h);
         if(this.nivel === "facil"){
             this.x -=1;
@@ -94,17 +95,16 @@ class Rayo{
         this.w = w;
         this.h = h;
         this.imagen = imagen;
+        
 
     }
     dibujarse(){
-       
-        ctx.fillRect(this.x, this.y, this.w,this.h);
+        //ctx.fillRect(this.x, this.y, this.w,this.h);
         ctx.drawImage(this.imagen,this.x, this.y, this.w,this.h);
-        this.x += 2;           
+        this.x += 2;
+                       
     }
-    
 }
-
 
 
 function mostrarDatos(){
@@ -112,6 +112,7 @@ function mostrarDatos(){
     ctx.font = "12px Verdana";
     ctx.fillText("UNE Hero", 120,10);
     
+      
     
 }
 
@@ -120,10 +121,11 @@ function mostrarDatos(){
 
 function teclas(alberto){
        document.addEventListener("keyup",(evento) => {
-        //console.log("Tecla tocada", evento.code);
+        console.log("Tecla tocada", evento.code);
         switch(evento.code){
             case "KeyF":
                 alberto.disparar();
+                console.log("disparar")
                 break;
             case "Space":
                 alberto.saltar();
@@ -198,8 +200,12 @@ function iniciarJuego(){
                 }
             }
         });
+        
+        rayos.forEach((rayitos) =>{
+            rayitos.dibujarse()
+        })
 
-     
+        
 
         crearBicho();
     }, 1000 / 60);
