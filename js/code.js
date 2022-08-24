@@ -177,7 +177,7 @@ function iniciarJuego(){
         if(alberto.saltando === true){
             
             //altura maximo de salto
-            if(alberto.y >50){
+            if(alberto.y > 10){
                 alberto.y -= 35;
                 alberto.x += 35;   
             }else{alberto.saltando = false; 
@@ -188,7 +188,7 @@ function iniciarJuego(){
 
         //no esta saltando
         if(alberto.saltando === false && alberto.y < 450){
-            alberto.y += 15;
+            alberto.y += 25;
         }
         //dibujar enemigos/elementos extras
         bichitos.forEach((bicho, index) =>{
@@ -205,7 +205,11 @@ function iniciarJuego(){
                 if(alberto.vida === 0 ){
                    alert("GAME OVER")
                    clearInterval(idInterval)
-                   console.log(alberto.score)
+                   ctx.clearRect(0,0,1566, 625);
+                   mostrarDatos(distancia,alberto.score, alberto.vida);
+                  setTimeout(()=>{
+                    iniciarJuego()
+                  },1000)
                 }
                 
             }
@@ -216,13 +220,18 @@ function iniciarJuego(){
             bichitos.forEach((bicho, bIndex) => {
           
                 if (rayitos.x + rayitos.w >= bicho.x) {
-                  // quitar el hueso y el cactus
                   bichitos.splice(rIndex, 1);
                   rayos.splice(bIndex, 1);
                   alberto.score +=10;
                   if(alberto.score >= 200){
                     alert("YOU WIN")
                     clearInterval(idInterval)
+                    ctx.clearRect(0,0,1566, 625);
+                    mostrarDatos(distancia,alberto.score, alberto.vida);
+                    setTimeout(()=>{
+                    iniciarJuego()
+                  },1000)
+
                 }
                 }
               });
