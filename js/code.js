@@ -35,20 +35,24 @@ class Alberto{
     }
 
 avanzar(){
-    this.x +=5;
+    
+    if(this.x < 1200){
+        this.x +=20;
+    }
     
 }
 
 retroceder(){ 
     if(this.x > 0){
-    this.x -=15;
+    this.x -=20;
 }
 
 }
 
 saltar(){
-    this.saltando = true;
-  
+        if(this.x < 600){
+            this.saltando = true;
+    }
 
 }
 
@@ -191,9 +195,8 @@ function iniciarJuego(){
             alberto.y += 25;
         }
         //dibujar enemigos/elementos extras
-        bichitos.forEach((bicho, index) =>{
+       bichitos.forEach((bicho, index) =>{
             bicho.dibujarse();
-           
             if(bicho.x <= alberto.x + alberto.w &&
                  bicho.x >= alberto.x && 
                  bicho.y <= alberto.y + alberto.h &&
@@ -205,15 +208,10 @@ function iniciarJuego(){
                 if(alberto.vida === 0 ){
                    alert("GAME OVER")
                    clearInterval(idInterval)
-                   ctx.clearRect(0,0,1566, 625);
-                   mostrarDatos(distancia,alberto.score, alberto.vida);
-                  setTimeout(()=>{
-                    iniciarJuego()
-                  },1000)
-                }
-                
+                }       
             }
         });
+    
         
         rayos.forEach((rayitos,rIndex) =>{
             rayitos.dibujarse() 
@@ -226,12 +224,7 @@ function iniciarJuego(){
                   if(alberto.score >= 200){
                     alert("YOU WIN")
                     clearInterval(idInterval)
-                    ctx.clearRect(0,0,1566, 625);
-                    mostrarDatos(distancia,alberto.score, alberto.vida);
-                    setTimeout(()=>{
-                    iniciarJuego()
-                  },1000)
-
+                   
                 }
                 }
               });
