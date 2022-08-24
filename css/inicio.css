@@ -6,7 +6,7 @@
 .fondo {
     width: 1350px;
     height: 1360px;
-    background-image: url("../imagenes/fondoinicio.png");
+    background: url("../imagenes/fondoinicio.png");
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;

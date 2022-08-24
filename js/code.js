@@ -3,7 +3,7 @@ let ctx = lienzo.getContext("2d")
 
 //imagenes
 const Imgalberto = new Image()
-Imgalberto.src = "../imagenes/alberto.png"
+Imgalberto.src = "../imagenes/alberto224.png"
 
 const bichoImg = new Image()
 bichoImg.src = "../imagenes/bichos1.png"
@@ -30,7 +30,6 @@ class Alberto{
     }
 
 avanzar(){
-    console.log("avanzar")
     this.x +=5;
     
 }
@@ -43,14 +42,12 @@ retroceder(){
 }
 
 saltar(){
-    if(this.x < 10){
-        this.saltando = true;
-    }
+    this.saltando = true;
+  
 
 }
 
 dibujarse(){
-    //ctxfillRect(this.x, this.y, this.w, this.h);
     ctx.drawImage(this.imagen, this.x, this.y, this.w, this.h);
 }
 
@@ -77,7 +74,6 @@ class Bicho{
 
     }
     dibujarse(){
-        //ctx.fillRect(this.x, this.y, this.w,this.h);
         ctx.drawImage(this.imagen,this.x, this.y, this.w,this.h);
         if(this.nivel === "facil"){
             this.x -=2;
@@ -101,7 +97,6 @@ class Rayo{
 
     }
     dibujarse(){
-        //ctx.fillRect(this.x, this.y, this.w,this.h);
         ctx.drawImage(this.imagen,this.x, this.y, this.w,this.h);
         this.x += 2;
                        
@@ -125,8 +120,7 @@ function mostrarDatos(distancia, score,vida){
 
 function teclas(alberto){
        document.addEventListener("keyup",(evento) => {
-        //console.log("Tecla tocada", evento.code);
-        switch(evento.code){
+         switch(evento.code){
             case "KeyF":
                 alberto.disparar();
                 console.log("disparar")
@@ -158,7 +152,7 @@ function crearBicho(){
 
 function iniciarJuego(){
     let distancia = 0;
-    const alberto = new Alberto(0, 0, 240, 200, Imgalberto, 100)
+    const alberto = new Alberto(0, 0, 260, 200, Imgalberto, 100)
     teclas(alberto);
     //console.log(alberto);
     alberto.dibujarse();
@@ -178,9 +172,9 @@ function iniciarJuego(){
         if(alberto.saltando === true){
             console.log("saltando");
             //altura maximo de salto
-            if(alberto.y > 0){
-                alberto.y -= 15;
-                alberto.x += 5;   
+            if(alberto.y >50){
+                alberto.y -= 35;
+                alberto.x += 35;   
             }else{alberto.saltando = false; 
 
             }
@@ -189,25 +183,36 @@ function iniciarJuego(){
 
         //no esta saltando
         if(alberto.saltando === false && alberto.y < 450){
-            alberto.y += 10;
+            alberto.y += 15;
         }
         //dibujar enemigos/elementos extras
         bichitos.forEach((bicho, index) =>{
             bicho.dibujarse();
-            if(bicho.x <= alberto.x + alberto.w){
+            if(bicho.x <= alberto.x + alberto.w &&
+                 bicho.x >= alberto.x && 
+                 bicho.y <= alberto.y + alberto.h &&
+                 bicho.y >= alberto.y){
                 //eliminar el elemento bichitos
-                //array.splice
                 bichitos.splice(index,1);
                 alberto.vida -= 25;
                 //si sigue vivo alberto
-                if(alberto.vida < 100){
-                   //alert("murio")
+                if(alberto.vida === 0 ){
+                   alert("GAME OVER")
                 }
             }
         });
         
-        rayos.forEach((rayitos) =>{
-            rayitos.dibujarse()
+        rayos.forEach((rayitos,rIndex) =>{
+            rayitos.dibujarse() 
+            bichitos.forEach((bicho, bIndex) => {
+          
+                if (rayitos.x + rayitos.w >= bicho.x) {
+                  // quitar el hueso y el cactus
+                  bichitos.splice(rIndex, 1);
+                  rayos.splice(bIndex, 1);
+                  alberto.score +=10;
+                }
+              });
         })
 
         
