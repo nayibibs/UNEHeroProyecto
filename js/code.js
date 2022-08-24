@@ -1,5 +1,10 @@
+let music = new Audio('../musica/voltus V.mp3')
+music.play();
+
 let lienzo = document.getElementById("lienzo");
 let ctx = lienzo.getContext("2d")
+
+let idInterval;
 
 //imagenes
 const Imgalberto = new Image()
@@ -159,7 +164,7 @@ function iniciarJuego(){
 
     //aqui se reedibuja el videojuego
 
-    setInterval(() => {
+    idInterval = setInterval(() => {
         ctx.clearRect(0,0,1366, 625);
         //mostrar datos
         mostrarDatos(distancia,alberto.score, alberto.vida);
@@ -170,7 +175,7 @@ function iniciarJuego(){
         
         //esta saltando? y "gravedad"
         if(alberto.saltando === true){
-            console.log("saltando");
+            
             //altura maximo de salto
             if(alberto.y >50){
                 alberto.y -= 35;
@@ -188,6 +193,7 @@ function iniciarJuego(){
         //dibujar enemigos/elementos extras
         bichitos.forEach((bicho, index) =>{
             bicho.dibujarse();
+           
             if(bicho.x <= alberto.x + alberto.w &&
                  bicho.x >= alberto.x && 
                  bicho.y <= alberto.y + alberto.h &&
@@ -198,6 +204,7 @@ function iniciarJuego(){
                 //si sigue vivo alberto
                 if(alberto.vida === 0 ){
                    alert("GAME OVER")
+                   clearInterval(idInterval)
                 }
             }
         });
