@@ -1,4 +1,4 @@
-let music = new Audio('../musica/voltus V.mp3')
+let music = new Audio('../musica/voltusV.mp3')
 music.play();
 
 let lienzo = document.getElementById("lienzo");
@@ -146,7 +146,7 @@ function teclas(alberto){
 }
 
 function crearBicho(){
-    const num = Math.floor(Math.random() * 100);
+    const num = Math.floor(Math.random() * 50);
         if(num === 5){
         const bicho = new Bicho(1366, 500, 240, 200, bichoImg, "facil")
         bichitos.push(bicho);
@@ -205,7 +205,9 @@ function iniciarJuego(){
                 if(alberto.vida === 0 ){
                    alert("GAME OVER")
                    clearInterval(idInterval)
+                   console.log(alberto.score)
                 }
+                
             }
         });
         
@@ -218,6 +220,10 @@ function iniciarJuego(){
                   bichitos.splice(rIndex, 1);
                   rayos.splice(bIndex, 1);
                   alberto.score +=10;
+                  if(alberto.score >= 200){
+                    alert("YOU WIN")
+                    clearInterval(idInterval)
+                }
                 }
               });
         })
