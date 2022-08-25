@@ -1,6 +1,12 @@
 let music = new Audio('../musica/voltusV.mp3')
 music.play();
 
+const modal = document.querySelector(".modal");
+const modal1 = document.querySelector(".modal1")
+const closeButton = document.querySelector(".close-button");
+const closeButton2 = document.querySelector(".close-button2");
+
+
 let lienzo = document.getElementById("lienzo");
 let ctx = lienzo.getContext("2d")
 
@@ -15,7 +21,7 @@ bichoImg.src = "../imagenes/bichos1.png"
 
 const rayoImg = new Image()
 rayoImg.src = "../imagenes/rayo.png"
-console.log(rayoImg)
+
 
 const bichitos = []
 const rayos = []
@@ -132,7 +138,6 @@ function teclas(alberto){
          switch(evento.code){
             case "KeyF":
                 alberto.disparar();
-                console.log("disparar")
                 break;
             case "Space":
                 alberto.saltar();
@@ -154,7 +159,7 @@ function crearBicho(){
         if(num === 5){
         const bicho = new Bicho(1366, 500, 240, 200, bichoImg, "facil")
         bichitos.push(bicho);
-        console.log(bichitos)
+        
     }
 
 }
@@ -163,7 +168,6 @@ function iniciarJuego(){
     let distancia = 0;
     const alberto = new Alberto(0, 0, 260, 200, Imgalberto, 100)
     teclas(alberto);
-    //console.log(alberto);
     alberto.dibujarse();
 
     //aqui se reedibuja el videojuego
@@ -206,10 +210,13 @@ function iniciarJuego(){
                 alberto.vida -= 25;
                 //si sigue vivo alberto
                 if(alberto.vida === 0 ){
-                   let result = confirm("GAME OVER")
-                   if(result == true|| result == false){
-                    window.location.href = window.location.href;
-                   }
+                    modal1.style.visibility = "visible"
+                    modal1.style.opacity = 1
+                    closeButton2.addEventListener("click", ()=>{
+                    modal1.style.visibility = "hidden"
+                    modal1.style.opacity = 0
+                    });
+                                  
                    clearInterval(idInterval)
                 }       
             }
@@ -225,7 +232,14 @@ function iniciarJuego(){
                   rayos.splice(bIndex, 1);
                   alberto.score +=10;
                   if(alberto.score >= 200){
-                    alert("YOU WIN")
+                    modal.style.visibility = "visible"
+                    modal.style.opacity = 1
+                    closeButton.addEventListener("click", ()=>{
+                    modal.style.visibility = "hidden"
+                    modal.style.opacity = 0
+                    });
+                    
+
                     clearInterval(idInterval)
                    
                 }
@@ -241,3 +255,6 @@ function iniciarJuego(){
 }
 
 iniciarJuego();
+
+
+
