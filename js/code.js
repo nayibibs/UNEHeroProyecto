@@ -206,7 +206,10 @@ function iniciarJuego(){
                 alberto.vida -= 25;
                 //si sigue vivo alberto
                 if(alberto.vida === 0 ){
-                   alert("GAME OVER")
+                   let result = confirm("GAME OVER")
+                   if(result == true|| result == false){
+                    window.location.href = window.location.href;
+                   }
                    clearInterval(idInterval)
                 }       
             }

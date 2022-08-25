@@ -4,9 +4,9 @@
     
 }
 .fondo {
-    width: 1350px;
-    height: 1380px;
-    background: url("../imagenes/fondoinicio.png");
+    width: 1366px;
+    height: 625px;
+    background: url("../imagenes/fondoinicio1.png");
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
@@ -19,14 +19,15 @@
 
 a{
     padding: 15px;
-    border: 5px solid rgb(252, 244, 244);
+    border: 2px solid rgb(89, 172, 250);
     background-color: rgba(31, 61, 230, 0.623);
     color: #eedada;
     text-decoration: steelblue;
-    font-size: 40px;
-    border-radius: 25px;
+    font-size: 25px;
+    text-transform: uppercase;
+    border-radius: 10px;
     font-family: "Giorgia";
-   margin-top: 160px;
+    margin-top: 100px;
 }
 
 a:hover{
