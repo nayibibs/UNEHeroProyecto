@@ -57,6 +57,7 @@ canvas{
     cursor: pointer;
     border-radius: 0.25rem;
     background-color: rgb(38, 152, 187);
+    font-family: "Giorgia";
 }
 
 .close-button:hover {
@@ -88,7 +89,7 @@ canvas{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: rgb(21, 155, 233);
     padding: 1rem 1.5rem;
     width: 24rem;
     border-radius: 0.5rem;

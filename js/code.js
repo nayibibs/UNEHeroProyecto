@@ -212,13 +212,15 @@ function iniciarJuego(){
                 if(alberto.vida === 0 ){
                     modal1.style.visibility = "visible"
                     modal1.style.opacity = 1
-                    closeButton2.addEventListener("click", ()=>{
-                    modal1.style.visibility = "hidden"
-                    modal1.style.opacity = 0
-                    });
-                                  
-                   clearInterval(idInterval)
-                }       
+                        closeButton2.addEventListener("click", ()=>{
+                            modal1.style.visibility = "hidden";
+                            modal1.style.opacity = 0;
+                            
+                        });
+                                 
+                        clearInterval(idInterval)
+                }   
+               
             }
         });
     
@@ -235,13 +237,11 @@ function iniciarJuego(){
                     modal.style.visibility = "visible"
                     modal.style.opacity = 1
                     closeButton.addEventListener("click", ()=>{
-                    modal.style.visibility = "hidden"
-                    modal.style.opacity = 0
+                        modal.style.visibility = "hidden"
+                        modal.style.opacity = 0
+                        clearInterval(idInterval)
                     });
-                    
-
-                    clearInterval(idInterval)
-                   
+                                                     
                 }
                 }
               });
